@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,6 +59,70 @@ namespace CurrencyConverter
             _listConversionRates.Add(new CurrencyConversionRate() { FromCurrency = from, ToCurrency = to, Moment = inMoment, ConversionFactor = inConversionRate});
 
             return true;
+        }
+
+        public float GetRateForDate(DateTime inDate, string inCurrencyNameFrom, string inCurrencyNameTo )
+        {
+            Currency from = _listCurrencies.Find(a => a.Name == inCurrencyNameFrom);
+            Currency to = _listCurrencies.Find(a => a.Name == inCurrencyNameTo);
+
+            if (from == null || to == null)
+            {
+                // wrong currencies
+                return 0.0f;
+            }
+
+            // first, find all available rates between those two currencies
+            List<CurrencyConversionRate> listRatesSorted = _listConversionRates.Where(rate => rate.FromCurrency == @from && rate.ToCurrency == to).ToList();
+
+            // sorting list of rates by date
+            List<CurrencyConversionRate> listRatesSortedSorted = listRatesSorted.OrderBy(o => o.Moment).ToList();
+
+            float returnRate = listRatesSorted[0].ConversionFactor;
+
+
+            if (inDate <= listRatesSorted[0].Moment)
+                returnRate = listRatesSorted[0].ConversionFactor;
+            else if (inDate > listRatesSorted[listRatesSorted.Count - 1].Moment)
+                returnRate = listRatesSorted[listRatesSorted.Count - 1].ConversionFactor;
+            else
+            {
+                for (int i = 0; i < listRatesSorted.Count - 1; i++)
+                {
+                    if (listRatesSorted[i + 1].Moment == inDate)
+                        return listRatesSorted[i + 1].ConversionFactor;
+
+                    if (listRatesSorted[i].Moment < inDate && inDate < listRatesSorted[i + 1].Moment)
+                    {
+                        // izvest ćemo linearnu interpolaciju
+                        long x1 = listRatesSorted[i].Moment.Ticks;
+                        long x2 = listRatesSorted[i + 1].Moment.Ticks;
+                        float y1 = listRatesSorted[i].ConversionFactor;
+                        float y2 = listRatesSorted[i + 1].ConversionFactor;
+
+                        float x = inDate.Ticks;
+
+                        returnRate = (y2 - y1) / (x2 - x1) * (x - x1) + y1;
+                    }
+                }
+            }
+
+            return returnRate;
+        }
+        public float Convert(float inAmount, DateTime inDate, string inCurrencyNameFrom, string inCurrencyNameTo)
+        {
+            Currency from = _listCurrencies.Find(a => a.Name == inCurrencyNameFrom);
+            Currency to = _listCurrencies.Find(a => a.Name == inCurrencyNameTo);
+
+            if (from == null || to == null)
+            {
+                // wrong currencies
+                return 0.0f;
+            }
+
+            float rate = GetRateForDate(inDate, inCurrencyNameFrom, inCurrencyNameTo);
+
+            return inAmount * rate;
         }
     }
 }
