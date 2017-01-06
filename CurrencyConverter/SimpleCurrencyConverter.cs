@@ -10,7 +10,12 @@ namespace CurrencyConverter
     public class SimpleCurrencyConverter
     {
         List<Currency> _listCurrencies = new List<Currency>();
-        List<CurrencyConversionRate> _listConversionRates = new List<CurrencyConversionRate>(); 
+        List<CurrencyConversionRate> _listConversionRates = new List<CurrencyConversionRate>();
+
+        public List<Currency> ListCurrencies
+        {
+            get { return _listCurrencies; }
+        }
 
         public void Init()
         {
@@ -21,42 +26,35 @@ namespace CurrencyConverter
 
         private void InitializeCurrencies()
         {
-            _listCurrencies.Add(new Currency() { Country = "USA",           Name = "Dollar",    ISOSymbol = "USD",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "Australia",     Name = "Dollar",    ISOSymbol = "AUD",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "Belarus",       Name = "Ruble",     ISOSymbol = "BYN",  Symbol = "Br" });
-            _listCurrencies.Add(new Currency() { Country = "Brazil",        Name = "Real",      ISOSymbol = "BRL",  Symbol = "R$" });
-            _listCurrencies.Add(new Currency() { Country = "Canada",        Name = "Dollar",    ISOSymbol = "CAD",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "Chile",         Name = "Peso",      ISOSymbol = "CLP",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "China",         Name = "Yuan",      ISOSymbol = "CNY",  Symbol = "¥" });
-            _listCurrencies.Add(new Currency() { Country = "Columbia",      Name = "Peso",      ISOSymbol = "COP",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "Croatia",       Name = "Kuna",      ISOSymbol = "HRK",  Symbol = "kn" });
-            _listCurrencies.Add(new Currency() { Country = "Egypt",         Name = "Pound",     ISOSymbol = "EGP",  Symbol = "£" });
-            _listCurrencies.Add(new Currency() { Country = "EU",            Name = "Euro",      ISOSymbol = "EUR",  Symbol = "€" });
-            _listCurrencies.Add(new Currency() { Country = "Hong Kong",     Name = "Dollar",    ISOSymbol = "HKD",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "India",         Name = "Rupee",     ISOSymbol = "INR",  Symbol = "" });
-            _listCurrencies.Add(new Currency() { Country = "Indonesia",     Name = "Rupiah",    ISOSymbol = "IDR",  Symbol = "RP" });
-            _listCurrencies.Add(new Currency() { Country = "Israel",        Name = "Shekel",    ISOSymbol = "ILS",  Symbol = "₪" });
-            _listCurrencies.Add(new Currency() { Country = "Japan",         Name = "Yen",       ISOSymbol = "JPY",  Symbol = "¥" });
-            _listCurrencies.Add(new Currency() { Country = "South Korea",   Name = "Won",       ISOSymbol = "KRW",  Symbol = "₩" });
-            _listCurrencies.Add(new Currency() { Country = "Malaysia",      Name = "Ringgit",   ISOSymbol = "MYR",  Symbol = "RM" });
-            _listCurrencies.Add(new Currency() { Country = "Mexico",        Name = "Peso",      ISOSymbol = "MXN",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "New Zealand",   Name = "Dollar",    ISOSymbol = "NZD",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "Nigeria",       Name = "Naira",     ISOSymbol = "NGN",  Symbol = "₦" });
-            _listCurrencies.Add(new Currency() { Country = "Norway",        Name = "Krone",     ISOSymbol = "NOK",  Symbol = "kr" });
-            _listCurrencies.Add(new Currency() { Country = "Pakistan",      Name = "Rupee",     ISOSymbol = "PKR",  Symbol = "₨" });
-            _listCurrencies.Add(new Currency() { Country = "Phillipines",   Name = "Peso",      ISOSymbol = "PHP",  Symbol = "₱" });
-            _listCurrencies.Add(new Currency() { Country = "Russia",        Name = "Ruble",     ISOSymbol = "RUB",  Symbol = "₽" });
-            _listCurrencies.Add(new Currency() { Country = "Saudi Arabia",  Name = "Rial",      ISOSymbol = "SAR",  Symbol = "﷼" });
-            _listCurrencies.Add(new Currency() { Country = "Serbia",        Name = "Dinar",     ISOSymbol = "RSD",  Symbol = "Дин" });
-            _listCurrencies.Add(new Currency() { Country = "Singapore",     Name = "Dollar",    ISOSymbol = "SGD",  Symbol = "$" });
-            _listCurrencies.Add(new Currency() { Country = "South Africa",  Name = "Rand",      ISOSymbol = "ZAR",  Symbol = "R" });
-            _listCurrencies.Add(new Currency() { Country = "Switzerland",   Name = "Franc",     ISOSymbol = "CHF",  Symbol = "CHF" });
-            _listCurrencies.Add(new Currency() { Country = "Thailand",      Name = "Baht",      ISOSymbol = "THB",  Symbol = "฿" });
-            _listCurrencies.Add(new Currency() { Country = "Turkey",        Name = "Lira",      ISOSymbol = "TRY",  Symbol = "" });
-            _listCurrencies.Add(new Currency() { Country = "Ukraine",       Name = "Hryvnia",   ISOSymbol = "UAH",  Symbol = "₴" });
-            _listCurrencies.Add(new Currency() { Country = "United Kingdom",Name = "Pound",     ISOSymbol = "GBP",  Symbol = "£" });
-            _listCurrencies.Add(new Currency() { Country = "Uruguay",       Name = "Peso",      ISOSymbol = "TRY",  Symbol = "" });
-            _listCurrencies.Add(new Currency() { Country = "Turkey",        Name = "Lira",      ISOSymbol = "UYU",  Symbol = "$U" });
+            ListCurrencies.Add(new Currency() { Country = "USA",           Name = "Dollar",    LongName = "US Dollar",             ISOSymbol = "USD",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "Australia",     Name = "Dollar",    LongName = "Australian Dollar",     ISOSymbol = "AUD",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "Brazil",        Name = "Real",      LongName = "Brazilian Real",        ISOSymbol = "BRL",  Symbol = "R$" });
+            ListCurrencies.Add(new Currency() { Country = "Canada",        Name = "Dollar",    LongName = "Canadian Dollar",       ISOSymbol = "CAD",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "Chile",         Name = "Peso",      LongName = "Chilean Peso",          ISOSymbol = "CLP",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "China",         Name = "Yuan",      LongName = "Chinese Yuan Renminbi", ISOSymbol = "CNY",  Symbol = "¥" });
+            ListCurrencies.Add(new Currency() { Country = "Columbia",      Name = "Peso",      LongName = "Colombian Peso",        ISOSymbol = "COP",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "Croatia",       Name = "Kuna",      LongName = "Croatian Kuna",         ISOSymbol = "HRK",  Symbol = "kn" });
+            ListCurrencies.Add(new Currency() { Country = "EU",            Name = "Euro",      LongName = "Euro",                  ISOSymbol = "EUR",  Symbol = "€" });
+            ListCurrencies.Add(new Currency() { Country = "Hong Kong",     Name = "Dollar",    LongName = "Hong Kong Dollar",      ISOSymbol = "HKD",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "India",         Name = "Rupee",     LongName = "Indian Rupee",          ISOSymbol = "INR",  Symbol = "" });
+            ListCurrencies.Add(new Currency() { Country = "Indonesia",     Name = "Rupiah",    LongName = "Indonesian Rupiah",     ISOSymbol = "IDR",  Symbol = "RP" });
+            ListCurrencies.Add(new Currency() { Country = "Israel",        Name = "Shekel",    LongName = "Israeli Shekel",        ISOSymbol = "ILS",  Symbol = "₪" });
+            ListCurrencies.Add(new Currency() { Country = "Japan",         Name = "Yen",       LongName = "Japanese Yen",          ISOSymbol = "JPY",  Symbol = "¥" });
+            ListCurrencies.Add(new Currency() { Country = "South Korea",   Name = "Won",       LongName = "South Korean Won",      ISOSymbol = "KRW",  Symbol = "₩" });
+            ListCurrencies.Add(new Currency() { Country = "Malaysia",      Name = "Ringgit",   LongName = "Malaysian Ringgit",     ISOSymbol = "MYR",  Symbol = "RM" });
+            ListCurrencies.Add(new Currency() { Country = "Mexico",        Name = "Peso",      LongName = "Mexican Peso",          ISOSymbol = "MXN",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "New Zealand",   Name = "Dollar",    LongName = "New Zealand Dollar",    ISOSymbol = "NZD",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "Norway",        Name = "Krone",     LongName = "Norwegian Krone",       ISOSymbol = "NOK",  Symbol = "kr" });
+            ListCurrencies.Add(new Currency() { Country = "Pakistan",      Name = "Rupee",     LongName = "Pakistani Rupee",       ISOSymbol = "PKR",  Symbol = "₨" });
+            ListCurrencies.Add(new Currency() { Country = "Phillipines",   Name = "Peso",      LongName = "Philippine Peso",       ISOSymbol = "PHP",  Symbol = "₱" });
+            ListCurrencies.Add(new Currency() { Country = "Russia",        Name = "Ruble",     LongName = "Russian Ruble",         ISOSymbol = "RUB",  Symbol = "₽" });
+            ListCurrencies.Add(new Currency() { Country = "Saudi Arabia",  Name = "Rial",      LongName = "Saudi Arabian Riyal",   ISOSymbol = "SAR",  Symbol = "﷼" });
+            ListCurrencies.Add(new Currency() { Country = "Singapore",     Name = "Dollar",    LongName = "Singapore Dollar",      ISOSymbol = "SGD",  Symbol = "$" });
+            ListCurrencies.Add(new Currency() { Country = "South Africa",  Name = "Rand",      LongName = "South African Rand",    ISOSymbol = "ZAR",  Symbol = "R" });
+            ListCurrencies.Add(new Currency() { Country = "Switzerland",   Name = "Franc",     LongName = "Swiss Franc",           ISOSymbol = "CHF",  Symbol = "CHF" });
+            ListCurrencies.Add(new Currency() { Country = "Thailand",      Name = "Baht",      LongName = "Thai Baht",             ISOSymbol = "THB",  Symbol = "฿" });
+            ListCurrencies.Add(new Currency() { Country = "Turkey",        Name = "Lira",      LongName = "Turkish Lira",          ISOSymbol = "TRY",  Symbol = "" });
+            ListCurrencies.Add(new Currency() { Country = "United Kingdom",Name = "Pound",     LongName = "British Pound",         ISOSymbol = "GBP",  Symbol = "£" });
 
         }
 
@@ -79,8 +77,8 @@ namespace CurrencyConverter
 
         public bool AddConversionRate(DateTime inMoment, string inCurrencyNameFrom, string inCurrencyNameTo, float inConversionRate)
         {
-            Currency from = _listCurrencies.Find(a => a.Name == inCurrencyNameFrom);
-            Currency to   = _listCurrencies.Find(a => a.Name == inCurrencyNameTo);
+            Currency from = ListCurrencies.Find(a => a.Name == inCurrencyNameFrom);
+            Currency to   = ListCurrencies.Find(a => a.Name == inCurrencyNameTo);
 
             if (from == null || to == null)
             {
@@ -97,8 +95,8 @@ namespace CurrencyConverter
 
         public float GetRateForDate(DateTime inDate, string inCurrencyNameFrom, string inCurrencyNameTo )
         {
-            Currency from = _listCurrencies.Find(a => a.Name == inCurrencyNameFrom);
-            Currency to = _listCurrencies.Find(a => a.Name == inCurrencyNameTo);
+            Currency from = ListCurrencies.Find(a => a.Name == inCurrencyNameFrom);
+            Currency to = ListCurrencies.Find(a => a.Name == inCurrencyNameTo);
 
             if (from == null || to == null)
             {
@@ -145,8 +143,8 @@ namespace CurrencyConverter
         }
         public float Convert(float inAmount, DateTime inDate, string inCurrencyNameFrom, string inCurrencyNameTo)
         {
-            Currency from = _listCurrencies.Find(a => a.Name == inCurrencyNameFrom);
-            Currency to = _listCurrencies.Find(a => a.Name == inCurrencyNameTo);
+            Currency from = ListCurrencies.Find(a => a.Name == inCurrencyNameFrom);
+            Currency to = ListCurrencies.Find(a => a.Name == inCurrencyNameTo);
 
             if (from == null || to == null)
             {

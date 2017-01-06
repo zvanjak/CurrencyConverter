@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
+using CurrencyConverter;
 using HtmlAgilityPack;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
@@ -15,13 +17,23 @@ namespace CurrencyWebScrapper
     {
         static void Main(string[] args)
         {
+            SimpleCurrencyConverter cv = new SimpleCurrencyConverter();
+            cv.Init();
+
+            GetRatesForDateFromWebsite_X_Rates(cv, "USD", 6, 1, 2017);
+        }
+
+        private static List<CurrencyConversionRate> GetRatesForDateFromWebsite_X_Rates(SimpleCurrencyConverter inConverter, string inFromCurr, int inDay, int inMonth, int inYear)
+        {
+            List<CurrencyConversionRate> retList = new List<CurrencyConversionRate>();
+
             ScrapingBrowser Browser = new ScrapingBrowser();
             Browser.AllowAutoRedirect = true; // Browser has settings you can access in setup
             Browser.AllowMetaRedirect = true;
 
-            WebPage PageResult = Browser.NavigateToPage(new Uri("http://www.x-rates.com/historical/?from=USD&amount=1&date=2017-01-06"));
-            //HtmlNode TitleNode = PageResult.Html.CssSelect(".navbar-brand").FirstOrDefault();
-            //string PageTitle = TitleNode.InnerText;
+            string url = "http://www.x-rates.com/historical/?from=" + inFromCurr + "&amount=1&date=" + inYear.ToString() + "-" + inMonth.ToString("D2") + "-" + inDay.ToString("D2");
+
+            WebPage PageResult = Browser.NavigateToPage(new Uri(url));
 
             List<string> Names = new List<string>();
             var Table = PageResult.Html.CssSelect(".ratesTable");
@@ -30,11 +42,31 @@ namespace CurrencyWebScrapper
 
             foreach (var row in myTable.SelectNodes("tbody/tr"))
             {
-                foreach (var cell in row.SelectNodes("td"))
+                var nameCurrTo = row.SelectNodes("td")[0].InnerText;
+                var value = row.SelectNodes("td")[1].InnerText;
+                var invertedValue = row.SelectNodes("td")[2].InnerText;
+
+                // find that currency by long name
+                var toCurrency = inConverter.ListCurrencies.FirstOrDefault(p => p.LongName == nameCurrTo);
+                if (toCurrency != null)
                 {
-                    Console.WriteLine(cell.InnerText);
+                    CurrencyConversionRate newRate = new CurrencyConversionRate();
+
+                    Currency from = inConverter.ListCurrencies.Find(a => a.ISOSymbol == inFromCurr);
+
+                    newRate.FromCurrency = from;
+                    newRate.ToCurrency   = toCurrency;
+                    newRate.ConversionFactor = Convert.ToSingle(value);
+                    newRate.Moment = new DateTime(inYear, inMonth, inDay);
+
+                    Console.WriteLine(nameCurrTo + " " + value + " " + invertedValue);
+
+                    retList.Add(newRate);
                 }
+                
             }
+
+            return retList;
         }
 
         private static void GetPageUsingStandardWebRequest()
