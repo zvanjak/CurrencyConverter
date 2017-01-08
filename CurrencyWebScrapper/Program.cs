@@ -20,7 +20,7 @@ namespace CurrencyWebScrapper
             SimpleCurrencyConverter cv = new SimpleCurrencyConverter();
             cv.Init();
 
-            GetRatesForDateFromWebsite_X_Rates(cv, "USD", 6, 1, 2017);
+            GetRatesForDateFromWebsite_X_Rates(cv, "USD", 6, 1, 2007);
         }
 
         private static List<CurrencyConversionRate> GetRatesForDateFromWebsite_X_Rates(SimpleCurrencyConverter inConverter, string inFromCurr, int inDay, int inMonth, int inYear)
@@ -38,32 +38,35 @@ namespace CurrencyWebScrapper
             List<string> Names = new List<string>();
             var Table = PageResult.Html.CssSelect(".ratesTable");
 
-            var myTable = Table.ElementAt(1);
-
-            foreach (var row in myTable.SelectNodes("tbody/tr"))
+            if (Table.Count() > 0)
             {
-                var nameCurrTo = row.SelectNodes("td")[0].InnerText;
-                var value = row.SelectNodes("td")[1].InnerText;
-                var invertedValue = row.SelectNodes("td")[2].InnerText;
+                var myTable = Table.ElementAt(1);
 
-                // find that currency by long name
-                var toCurrency = inConverter.ListCurrencies.FirstOrDefault(p => p.LongName == nameCurrTo);
-                if (toCurrency != null)
+                foreach (var row in myTable.SelectNodes("tbody/tr"))
                 {
-                    CurrencyConversionRate newRate = new CurrencyConversionRate();
+                    var nameCurrTo = row.SelectNodes("td")[0].InnerText;
+                    var value = row.SelectNodes("td")[1].InnerText;
+                    var invertedValue = row.SelectNodes("td")[2].InnerText;
 
-                    Currency from = inConverter.ListCurrencies.Find(a => a.ISOSymbol == inFromCurr);
+                    // find that currency by long name
+                    var toCurrency = inConverter.ListCurrencies.FirstOrDefault(p => p.LongName == nameCurrTo);
+                    if (toCurrency != null)
+                    {
+                        CurrencyConversionRate newRate = new CurrencyConversionRate();
 
-                    newRate.FromCurrency = from;
-                    newRate.ToCurrency   = toCurrency;
-                    newRate.ConversionFactor = Convert.ToSingle(value);
-                    newRate.Moment = new DateTime(inYear, inMonth, inDay);
+                        Currency from = inConverter.ListCurrencies.Find(a => a.ISOSymbol == inFromCurr);
 
-                    Console.WriteLine(nameCurrTo + " " + value + " " + invertedValue);
+                        newRate.FromCurrency = from;
+                        newRate.ToCurrency = toCurrency;
+                        newRate.ConversionFactor = Convert.ToSingle(value);
+                        newRate.Moment = new DateTime(inYear, inMonth, inDay);
 
-                    retList.Add(newRate);
+                        Console.WriteLine(nameCurrTo + " " + value + " " + invertedValue);
+
+                        retList.Add(newRate);
+                    }
+
                 }
-                
             }
 
             return retList;
