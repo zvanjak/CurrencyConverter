@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DFCC562D-3393-413E-B5B5-6213890031F7}</ProjectGuid>
+    <ProjectGuid>{C3D9B5CF-1E8D-4FEF-863D-B442F78032FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CurrencyConverter</RootNamespace>
-    <AssemblyName>CurrencyConverter</AssemblyName>
+    <RootNamespace>CurrencyConverter.Common</RootNamespace>
+    <AssemblyName>CurrencyConverter.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,14 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SimpleCurrencyConverter.cs" />
+    <Compile Include="ConversionAlgorithms.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="CurrencyConversionRate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CurrencyConverter.Common\CurrencyConverter.Common.csproj">
-      <Project>{c3d9b5cf-1e8d-4fef-863d-b442f78032fe}</Project>
-      <Name>CurrencyConverter.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
