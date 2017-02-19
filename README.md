@@ -32,3 +32,54 @@ Sources:
 5. FRED - [https://fred.stlouisfed.org/categories/94](https://fred.stlouisfed.org/categories/94)
 6. FED - [https://www.federalreserve.gov/releases/h10/hist/default.htm](https://www.federalreserve.gov/releases/h10/hist/default.htm)
 7. 
+
+
+PROJEKTI/BIBLIOTEKE
+
+	1. BaseLib - klase za opis entiteta i osnovne konverzijske funkcije
+	2. Data direktorij
+		1. poddirektoriji za scrappane liste s razlièitih sajtova
+		2. dodati lokalne balkanske valute
+
+	3. SimpleCurrencyConverter - ukljuèuje povijesne podatke za 7-8 najvažnijih valuta
+		1. MMFovi podaci
+		2. od 2000 svaki dan
+		3. prije toga svakih 10 dana
+		4. lako ukljuèivanje/dodavanje novih nizova vrijednosti
+		5. moguænost uèitavanja definiranih formata
+			1. ukoliko se želi uèitati iz kompletnih lista (scrapanih s websiteova
+
+
+	4. online scrappers - ciljaju toèno odreðeni datum
+		1. projekt - CConv.OnlineDataScrappers
+		2. definirati interface koji zadovoljavaju
+			1. primaju toèno odreðeni datum i vrijeme
+			2. i dva deskriptora valuta
+
+		3. definirati i testove za svaki - s hardkodiranim vrijednostima koje s oèekuju kod dobrog izvoðenja
+
+	5. static scrappers - dovlaèe liste povijesnih podataa
+		1. staviti u projekt - CConv.SeriesDataScrappers
+		2. serija razlièitih projekata za scrapping s razlièiitih stranica
+		3. kod svih unificirati gdje se podaci spremaju nakon scrappanja
+		4. unificirati format 
+		5. MMF, ECB, FED,
+			1. domaæe - HNB, Zaba, Privredna, Erste, Hypo
+
+
+	6. utilities - produciraju .cs fajlove s hardkodiranim serijama
+	7. CurrencyConversionManager
+		1. za razliku do simple, njemu se uvijek mora reæi koji niz da koristi
+		2. po default dizajniran za više razlišitih izvora
+		3. moguænost definiranja više razlièitih vrsta teèaja
+			1. srednji, kupovni, prodajni
+
+		4. automatsko identificiranje arbitraže? uz online scrappere
+
+	8. Examples
+		1. popis najveæih dnevnih/tjednih/mjeseènih promjena (pad/rast) teèaja
+		2. varijacije u razlici prodajnog i kupovnog teèaja kod domaæih banaka
+
+
+
+

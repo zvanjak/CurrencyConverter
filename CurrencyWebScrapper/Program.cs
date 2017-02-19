@@ -23,7 +23,7 @@ namespace CurrencyWebScrapper
             GetRatesForDateFromWebsite_X_Rates(cv, "USD", 6, 1, 2007);
         }
 
-        private static List<CurrencyConversionRate> GetRatesForDateFromWebsite_X_Rates(SimpleCurrencyConverter inConverter, string inFromCurr, int inDay, int inMonth, int inYear)
+        private static List<CurrencyConversionRate> GetRatesForDateFromWebsite_X_Rates(SimpleCurrencyConverter inConverter, string inForCurr, int inDay, int inMonth, int inYear)
         {
             List<CurrencyConversionRate> retList = new List<CurrencyConversionRate>();
 
@@ -31,7 +31,7 @@ namespace CurrencyWebScrapper
             Browser.AllowAutoRedirect = true; // Browser has settings you can access in setup
             Browser.AllowMetaRedirect = true;
 
-            string url = "http://www.x-rates.com/historical/?from=" + inFromCurr + "&amount=1&date=" + inYear.ToString() + "-" + inMonth.ToString("D2") + "-" + inDay.ToString("D2");
+            string url = "http://www.x-rates.com/historical/?from=" + inForCurr + "&amount=1&date=" + inYear.ToString() + "-" + inMonth.ToString("D2") + "-" + inDay.ToString("D2");
 
             WebPage PageResult = Browser.NavigateToPage(new Uri(url));
 
@@ -54,7 +54,7 @@ namespace CurrencyWebScrapper
                     {
                         CurrencyConversionRate newRate = new CurrencyConversionRate();
 
-                        Currency from = inConverter.ListCurrencies.Find(a => a.ISOSymbol == inFromCurr);
+                        Currency from = inConverter.ListCurrencies.Find(a => a.ISOSymbol == inForCurr);
 
                         newRate.FromCurrency = from;
                         newRate.ToCurrency = toCurrency;
